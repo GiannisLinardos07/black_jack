@@ -1,0 +1,7 @@
+void intro(){
+
+
+    printf("Hello")
+
+
+}
