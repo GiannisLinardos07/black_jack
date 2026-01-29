@@ -12,6 +12,7 @@ typedef struct Account{
 
 int main(){
 
-
+    
+    return 0;
 
 }
