@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include "deck.h"
+#include "general.h"
 
 void deck_create(deck Card){
     FILE *fptr;
@@ -20,9 +20,11 @@ void deck_create(deck Card){
     fclose(fptr);
 }
 
+
+
 void deck_shuffle(deck Card){
     srand(time(0));
-
+    // Shuffle each card
     for(int i = MAX_CARDS - 1; i > 0 ; i--){
         int j = rand() % MAX_CARDS;
 
@@ -31,7 +33,9 @@ void deck_shuffle(deck Card){
         Card[j].value = temp;
         
         char temp_c[20];
-        strcpy(temp_c) 
+        strcpy(temp_c,Card[i].card_type);
+        strcpy(Card[i].card_type,Card[j].card_type);
+        strcpy(Card[j].card_type,temp_c);
         
     }
 }

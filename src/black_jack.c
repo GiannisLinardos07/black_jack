@@ -6,8 +6,7 @@
 
 
 int main(){
-
-    hi_mes();
+    intro();
 
         
 
