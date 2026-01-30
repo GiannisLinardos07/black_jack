@@ -4,11 +4,10 @@
 
 
 
-void deck_create(){
+void deck_create(deck Card){
     FILE *fptr;
     fptr = fopen("cards.txt","r")
 
-    deck Card;
     for(int i = 0; i < 52; i++){
         if((scanf("%d %s",Card[i].value,Card[i].card_type)) != 2){
             exit(1);
@@ -17,8 +16,10 @@ void deck_create(){
             exit(1);
         }
     }
-    
+
     fclose(fptr);
 }
 
+void deck_shuffle(deck Card){
 
+}
