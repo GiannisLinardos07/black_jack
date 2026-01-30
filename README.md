@@ -1,2 +1,3 @@
-# bank_account
-A bank account manager (For C beginners)
+# BlackJack Table
+
+A "C" program for the game of ***"BlackJack"*** for '1' player. Playing against 4 players (BOTS). Bets
