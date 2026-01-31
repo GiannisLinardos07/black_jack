@@ -20,5 +20,5 @@ typedef struct player{
     int bet;
     int balance;
     int sum;
-    Hand *hand;
+    Hand hand;
 } Player;

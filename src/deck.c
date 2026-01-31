@@ -4,17 +4,17 @@
 #include <string.h>
 #include "general.h"
 
-void deck_create(deck Card){
+void deck_create(){
     FILE *fptr;
-    fptr = fopen("cards.txt","r")
+    fptr = fopen("cards.txt","r");
 
     deck Card[52];
 
     for(int i = 0; i < MAX_CARDS; i++){
-        if((scanf("%d %s",Card[i].value,Card[i].card_type)) != 2){
+        if((scanf("%d %s",Card[i].value,Card[i].card_type)) != 2) {
             exit(1);
         }
-        if(Card[i] == NULL){
+        if(Card[i] == NULL) {
             exit(1);
         }
     }
@@ -22,9 +22,7 @@ void deck_create(deck Card){
     fclose(fptr);
 }
 
-
-
-void deck_shuffle(deck Card){
+void deck_shuffle(){
     srand(time(0));
     // Shuffle each card
     for(int i = MAX_CARDS - 1; i > 0 ; i--){
