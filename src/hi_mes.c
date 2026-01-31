@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "general.h"
+#include "deck.h"
 
 void intro(){
 
@@ -21,6 +22,20 @@ void intro(){
     else 
         exit(1);
 
+}
+
+//Checks the count of cards given versus the cards remaining on the deck
+void check_max(int *c){
+    if(c > MAX_CARDS - 1){
+        // We need a new deck because cards have already been dealt
+        deck_create();
+        printf("A new deck has been created...\n");
+        deck_shuffle();
+        printf("Shuffling deck...\n");
+
+        //deck pos back to 0
+        *c = 0;
+    }
 }
 
 //function play
@@ -82,9 +97,15 @@ void play() {
                 exit (1);
             
             if (choice == 'H') {
+                // Checking if there are any more cards to be dealt
+                check_max(&deck_counter);
+
                 printf("Card given: %s\n", deck[deck_counter].card_type);
+                
                 player.sum += deck[deck_counter].value;
+                
                 deck_counter++;
+                
                 printf("New Total: %d\n", player_sum);
             } else
                 break;
@@ -93,12 +114,17 @@ void play() {
         //Check if player busted
         if (player.sum > 21) {
             printf("You busted! You just lost %d.\n", player.bet);
-            player_balance -= player.bet;
+            player.balance -= player.bet;
+            printf("New balance: %d\n",player.balance);
         } else {
-            printf("Dealer reveals hidden card. His Total was: %d\n", dealer.sum);
+            printf("Dealer reveals hidden card. His Total is: %d\n", dealer.sum);
 
             while (dealer.sum < 17) {
                 //Κάνει hit ο dealer μέχρι να φτάσει στα 17. Μετά σταματάει
+                check_max(deck_counter);
+
+                 printf("Card given: %s\n", deck[deck_counter].card_type);
+                
             }
 
         }

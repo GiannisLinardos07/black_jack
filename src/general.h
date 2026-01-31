@@ -11,8 +11,8 @@ typedef struct deck{
 
 
 typedef struct hand{
-    int cards[52];
-    char *type[52];
+    int cards[MAX_CARDS];
+    char *type[MAX_CARDS];
 } Hand;
 
 
@@ -22,3 +22,5 @@ typedef struct player{
     int sum;
     Hand hand;
 } Player;
+
+#endif
