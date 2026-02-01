@@ -129,9 +129,6 @@ void play() {
             printf("You busted! You just lost $%d.\n", player.bet);
             player.balance -= player.bet;
             printf("New balance: $%d\n",player.balance);
-        } else if (player.sum == 21) {
-            printf("You collected a sum of 21, congratulations! You just won $%d!\n", player.bet);
-            player.balance += player.bet;
         } else {
             printf("Dealer reveals his hidden card --> %s. His Total now is: %d\n", deck[deck_counter].card_type, dealer.sum);
 
