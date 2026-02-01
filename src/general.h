@@ -1,13 +1,13 @@
-#define MAX_CARDS 52
-
 #ifndef GENERAL_H
 #define GENERAL_H
+
+#define MAX_CARDS 52
+
 
 typedef struct deck{
     int value;
     char card_type[20];
 } Card;
-
 
 
 typedef struct hand{
@@ -22,5 +22,8 @@ typedef struct player{
     int sum;
     Hand hand;
 } Player;
+
+extern Card card[MAX_CARDS];
+
 
 #endif

@@ -121,7 +121,7 @@ void play() {
 
             while (dealer.sum < 17) {
                 //Κάνει hit ο dealer μέχρι να φτάσει στα 17. Μετά σταματάει
-                check_max(deck_counter);
+                check_max(&deck_counter);
 
                  printf("Card given: %s\n", deck[deck_counter].card_type);
                 
