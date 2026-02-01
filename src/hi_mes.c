@@ -7,17 +7,17 @@
 void intro(){
 
     printf("Welcome to BlackJack Table\n");
-    printf("Press 1 to join the table or 0 to quit")
+    printf("Press 1 to join the table or 0 to quit");
 
 
     int choice;
 
     // "0" or "1"
-    if(scanf("%d",choice) != 1){
+    if(scanf("%d", &choice) != 1){
         exit(1);
     }
 
-    if(scanf("%d", choice) == 1)
+    if(scanf("%d", &choice) == 1)
         play();
     else 
         exit(1);
@@ -77,13 +77,13 @@ void play() {
         printf("Dealing...\n");
 
         //Dealer: 1st card (Open)
-        dealer.Hand.Cards[0] = deck[deck_counter].value;
+        dealer.hand.Cards[0] = deck[deck_counter].value;
         dealer.sum += deck[deck_counter].value;
         printf("Dealer's first card: %s\n", deck[deck_counter].card_type);
         deck_counter++;
 
         //Dealer: 2nd card (Hidden)
-        deal.sum += deck[deck_counter].value;
+        dealer.sum += deck[deck_counter].value;
         printf("Dealer's 2nd card is hidden\n");
         deck_counter++;
 
@@ -117,7 +117,7 @@ void play() {
                 
                 deck_counter++;
                 
-                printf("New Total: %d\n", player_sum);
+                printf("New Total: %d\n", player.sum);
             } else {
                 printf("You chose to stand at %d.\n", player.sum);
                 break;

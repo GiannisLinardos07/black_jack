@@ -4,11 +4,14 @@
 #include <string.h>
 #include "general.h"
 
-void deck_create(){
-    FILE *fptr;
-    fptr = fopen("cards.txt","r");
+Card deck[MAX_CARDS];
 
-    deck Card[52];
+void deck_create(){
+    FILE *fptr = fopen("cards.txt", "r");
+    if (fptr == NULL) {
+        printf("Error!\n");
+        exit(1);
+    }
 
     for(int i = 0; i < MAX_CARDS; i++){
         if((scanf("%d %s",Card[i].value,Card[i].card_type)) != 2) {
