@@ -1,2 +1,4 @@
+void intro();
+void play();
 
 

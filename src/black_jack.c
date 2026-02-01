@@ -3,13 +3,10 @@
 #include "messages.h"
 #include "deck.h"
 
-//Global
-
-
 
 int main(){
     intro();
-    
+        
         
 
     return 0;

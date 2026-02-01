@@ -6,6 +6,8 @@
 #define HOR 7
 #define VER 6
 
+Card card[MAX_CARDS];
+
 void show_card(int c){
     //+-----+
     printf("+");
@@ -22,21 +24,20 @@ void show_card(int c){
                 printf("|");
             }else if((i == 1 && j == 1)){
                 if(card[c].value == 10){
-                    printf("%.2s",card[c].card_type);
-                    j++;
+                    printf("%c%c",card[c].card_type[0],card[c].card_type[1]);
+                    
                 }else{
-                    printf("%c",card[c].card_type);
+                    printf("%c",card[c].card_type[0]);
                 }
             }else if ((i == (VER - 1) && j == HOR)){
-                if(Card[c].value == 10){
-                    printf("%.2s",card[c].card_type);
-                    j++;
+                if(card[c].value == 10){
+                    printf("%c%c",card[c].card_type[0],card[c].card_type[1]);
+                    
                 }else{
                     printf(" ");
-                    printf("%c",card[c].card_type);
+                    printf("%c",card[c].card_type[0]);
                     j++;
                 }
-            }
             }else{
                 printf(" ");
             }
@@ -56,7 +57,7 @@ void show_card(int c){
 
 
 int main(){
-    Card card[MAX_CARDS];
+
     int c = 0;
     show_card(c);
     return 0;
