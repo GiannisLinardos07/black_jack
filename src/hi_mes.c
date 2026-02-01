@@ -33,7 +33,7 @@ void check_max(int *c){
         deck_shuffle();
         printf("Shuffling deck...\n");
 
-        //deck pos back to 0
+        //deck counter back to 0
         *c = 0;
     }
 }
@@ -45,12 +45,12 @@ void play() {
     player.balance = 1000;
 
     int deck_counter = 0;
+    int play_again = 1;
 
     printf("Loading deck from the files\n");
     deck_create();
 
-    //Συνθήκη για την while!!!
-    while (1) {
+    while (play_again && player.balance > 0) {
         printf("New round starting..\n");
         printf("Shuffling cards...\n");
         deck_shuffle();
@@ -58,10 +58,21 @@ void play() {
         player.sum = 0;
         dealer.sum = 0;
 
-        printf("Your current balance: %d\n", player.balance);
+        printf("Your balance: %d\n", player.balance);
 
-        printf("Place your bet: ");
-        scanf("%d", &player.bet);
+        printf("Place your bet($): ");
+
+        while (1) {
+            if (scanf("%d", &player.bet) != 1) {
+                printf("Invalid bet. Try again...\n");
+                continue;
+            }
+
+            if (player.bet > player.balance || player.bet <= 0)
+                printf("Invalid bet. Try again...\n");
+            else
+                break;
+        }
 
         printf("Dealing...\n");
 
@@ -94,7 +105,7 @@ void play() {
             printf("Hit or Stand (H or S)? ");
 
             if (scanf(" %c", &choice) != 1)
-                exit (1);
+                exit(1);
             
             if (choice == 'H') {
                 // Checking if there are any more cards to be dealt
@@ -107,28 +118,56 @@ void play() {
                 deck_counter++;
                 
                 printf("New Total: %d\n", player_sum);
-            } else
+            } else {
+                printf("You chose to stand at %d.\n", player.sum);
                 break;
+            }
         }
 
         //Check if player busted
         if (player.sum > 21) {
-            printf("You busted! You just lost %d.\n", player.bet);
+            printf("You busted! You just lost $%d.\n", player.bet);
             player.balance -= player.bet;
-            printf("New balance: %d\n",player.balance);
+            printf("New balance: $%d\n",player.balance);
         } else {
-            printf("Dealer reveals hidden card. His Total is: %d\n", dealer.sum);
+            printf("Dealer reveals his hidden card --> %s. His Total now is: %d\n", deck[deck_counter].card_type, dealer.sum);
 
             while (dealer.sum < 17) {
-                //Κάνει hit ο dealer μέχρι να φτάσει στα 17. Μετά σταματάει
-                check_max(&deck_counter);
-
-                 printf("Card given: %s\n", deck[deck_counter].card_type);
+                printf("Dealer hits. Card given: %s\n", deck[deck_counter].card_type);
+                dealer.sum += deck[deck_counter].value;
+                printf("Dealer's Total: %d\n", dealer.sum);
+                deck_counter++;
                 
+                check_max(deck_counter);
             }
 
+            if (dealer.sum > 21) {
+                printf("Dealer busts! You won $%d!\n", player.bet);
+                player.balance += player.bet;
+            } else if (player.sum > dealer.sum) {
+                printf("You just beat the dealer! You won $%d!\n", player.bet);
+                player.balance += player.bet;
+            } else if (player.sum < dealer.sum) {
+                printf("Dealer wins. You lost $%d.\n", player.bet);
+                player.balance -= player.bet;
+            } else {
+                printf("It's a tie! Your bet returned to your balance.\n");
+            }
         }
+
+        //Player's balance check
+        if (player.balance <= 0) {
+            printf("You are broke... Game is Over!\n");
+            break;
+        }
+
+        printf("\nDo you want to play another round? (0 for No | 1 for Yes): ");
+        scanf("%d", &play_again);
 
     }
     
+    printf("Final balance: $%d\n", player.balance);
+    
+    return 0;
+
 }
