@@ -118,8 +118,10 @@ void play() {
                 deck_counter++;
                 
                 printf("New Total: %d\n", player_sum);
-            } else
+            } else {
+                printf("You chose to stand at %d.\n", player.sum);
                 break;
+            }
         }
 
         //Check if player busted
@@ -127,8 +129,11 @@ void play() {
             printf("You busted! You just lost $%d.\n", player.bet);
             player.balance -= player.bet;
             printf("New balance: $%d\n",player.balance);
+        } else if (player.sum == 21) {
+            printf("You collected a sum of 21, congratulations! You just won $%d!\n", player.bet);
+            player.balance += player.bet;
         } else {
-            printf("Dealer reveals hidden card. His Total is: %d\n", dealer.sum);
+            printf("Dealer reveals his hidden card --> %s. His Total now is: %d\n", deck[deck_counter].card_type, dealer.sum);
 
             while (dealer.sum < 17) {
                 printf("Dealer hits. Card given: %s\n", deck[deck_counter].card_type);
