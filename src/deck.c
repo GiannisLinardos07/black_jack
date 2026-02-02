@@ -4,7 +4,6 @@
 #include <string.h>
 #include "general.h"
 
-Card deck[MAX_CARDS];
 
 void deck_create(){
     FILE *fptr = fopen("cards.txt", "r");
@@ -14,10 +13,10 @@ void deck_create(){
     }
 
     for(int i = 0; i < MAX_CARDS; i++){
-        if((scanf("%d %s",Card[i].value,Card[i].card_type)) != 2) {
+        if((scanf("%d %s",card[i].value,card[i].card_type)) != 2) {
             exit(1);
         }
-        if(Card[i] == NULL) {
+        if(card[i] == NULL) {
             exit(1);
         }
     }
@@ -31,14 +30,14 @@ void deck_shuffle(){
     for(int i = MAX_CARDS - 1; i > 0 ; i--){
         int j = rand() % MAX_CARDS;
 
-        int temp = Card[i].value;
-        Card[i].value = Card[j].value;
-        Card[j].value = temp;
+        int temp = card[i].value;
+        card[i].value = card[j].value;
+        card[j].value = temp;
         
         char temp_c[20];
-        strcpy(temp_c,Card[i].card_type);
-        strcpy(Card[i].card_type,Card[j].card_type);
-        strcpy(Card[j].card_type,temp_c);
+        strcpy(temp_c,card[i].card_type);
+        strcpy(card[i].card_type,card[j].card_type);
+        strcpy(card[j].card_type,temp_c);
         
     }
 }

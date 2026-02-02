@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include "general.h"
+#include "deck.h"
 
 #define HOR 7
 #define VER 6
 
-Card card[MAX_CARDS];
+
 
 void show_card(int c){
     //+-----+
@@ -59,7 +60,11 @@ void show_card(int c){
 int main(){
 
     int c = 0;
+    
+    deck_create();
+
     show_card(c);
+    
     return 0;
 }
 
