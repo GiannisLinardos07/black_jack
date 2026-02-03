@@ -4,12 +4,10 @@
 #include "messages.h"
 #include "deck.h"
 
+// Deck struct array
+Card card[MAX_CARDS];
 
 int main(){
     intro();
-        
-        
-
     return 0;
-    
 }

@@ -102,12 +102,14 @@ void play() {
         while (player.sum < 21) {
             char choice;
 
-            printf("Hit or Stand (H or S)? ");
+            printf("Hit or Stand or Double(H or S or D)? ");
 
-            if (scanf(" %c", &choice) != 1)
-                exit(1);
-            
-            if (choice == 'H') {
+            while (scanf("%c", &choice) != 1){
+                printf("Please try again. Wrong input!");
+            }
+
+            /* Choice (HIT,STAND,DOUBLE,SPLIT(on dev))*/        
+            if (choice == 'H') { /*HIT*/
                 // Checking if there are any more cards to be dealt
                 check_max(&deck_counter);
 
@@ -118,11 +120,25 @@ void play() {
                 deck_counter++;
                 
                 printf("New Total: %d\n", player.sum);
-            } else {
+            } else if(choice == "S") { /*STAND*/
                 printf("You chose to stand at %d.\n", player.sum);
                 break;
+            } else if(choice == "D") { /*DOUBLE*/
+                if(player.bet * 2 >= player.balance){
+                    int temp = player.bet * 2
+                    printf("Doubled your bet. Your new bet is: %d",temp);
+                    continue;
+                }else{
+                    printf("You can't double the bet. Insufficient balance!");
+                    continue;
+                }      
+            } else { /*WRONG INPUT*/
+                printf("No option assigned to the letter you typed! Try again.");
+                continue;
             }
         }
+                
+        
 
         //Check if player busted
         if (player.sum > 21) {
@@ -144,6 +160,10 @@ void play() {
             if (dealer.sum > 21) {
                 printf("Dealer busts! You won $%d!\n", player.bet);
                 player.balance += player.bet;
+            }else if (player.sum == 21){
+                printf("Blackjack!! You won $%d!\n",player.bet);
+                player.balance += player.bet
+            }    
             } else if (player.sum > dealer.sum) {
                 printf("You just beat the dealer! You won $%d!\n", player.bet);
                 player.balance += player.bet;
