@@ -3,6 +3,7 @@
 #include <string.h>
 #include "general.h"
 #include "deck.h"
+#include "messages.h"
 
 void intro(){
 
@@ -26,7 +27,7 @@ void intro(){
 
 //Checks the count of cards given versus the cards remaining on the deck
 void check_max(int *c){
-    if(c > MAX_CARDS - 1){
+    if(*c > MAX_CARDS - 1){
         // We need a new deck because cards have already been dealt
         deck_create();
         printf("A new deck has been created...\n");
@@ -77,24 +78,23 @@ void play() {
         printf("Dealing...\n");
 
         //Dealer: 1st card (Open)
-        dealer.hand.Cards[0] = deck[deck_counter].value;
-        dealer.sum += deck[deck_counter].value;
-        printf("Dealer's first card: %s\n", deck[deck_counter].card_type);
+        dealer.sum += card[deck_counter].value;
+        printf("Dealer's first card: %s\n", card[deck_counter].card_type);
         deck_counter++;
 
         //Dealer: 2nd card (Hidden)
-        dealer.sum += deck[deck_counter].value;
+        dealer.sum += card[deck_counter].value;
         printf("Dealer's 2nd card is hidden\n");
         deck_counter++;
 
         //Player: 1st card
-        player.sum += deck[deck_counter].value;
-        printf("Your 1st card: %s\n", deck[deck_counter].card_type);
+        player.sum += card[deck_counter].value;
+        printf("Your 1st card: %s\n", card[deck_counter].card_type);
         deck_counter++;
 
         //Player: 2nd card
-        player.sum += deck[deck_counter].value;
-        printf("Your 2nd card: %s\n", deck[deck_counter].card_type);
+        player.sum += card[deck_counter].value;
+        printf("Your 2nd card: %s\n", card[deck_counter].card_type);
         printf("Total: %d\n", player.sum);
         deck_counter++;
 
@@ -113,19 +113,19 @@ void play() {
                 // Checking if there are any more cards to be dealt
                 check_max(&deck_counter);
 
-                printf("Card given: %s\n", deck[deck_counter].card_type);
+                printf("Card given: %s\n", card[deck_counter].card_type);
                 
-                player.sum += deck[deck_counter].value;
+                player.sum += card[deck_counter].value;
                 
                 deck_counter++;
                 
                 printf("New Total: %d\n", player.sum);
-            } else if(choice == "S") { /*STAND*/
+            } else if(choice == 'S') { /*STAND*/
                 printf("You chose to stand at %d.\n", player.sum);
                 break;
-            } else if(choice == "D") { /*DOUBLE*/
+            } else if(choice == 'D') { /*DOUBLE*/
                 if(player.bet * 2 >= player.balance){
-                    int temp = player.bet * 2
+                    int temp = player.bet * 2;
                     printf("Doubled your bet. Your new bet is: %d",temp);
                     continue;
                 }else{
@@ -146,15 +146,15 @@ void play() {
             player.balance -= player.bet;
             printf("New balance: $%d\n",player.balance);
         } else {
-            printf("Dealer reveals his hidden card --> %s. His Total now is: %d\n", deck[deck_counter].card_type, dealer.sum);
+            printf("Dealer reveals his hidden card --> %s. His Total now is: %d\n", card[deck_counter].card_type, dealer.sum);
 
             while (dealer.sum < 17) {
-                printf("Dealer hits. Card given: %s\n", deck[deck_counter].card_type);
-                dealer.sum += deck[deck_counter].value;
+                printf("Dealer hits. Card given: %s\n", card[deck_counter].card_type);
+                dealer.sum += card[deck_counter].value;
                 printf("Dealer's Total: %d\n", dealer.sum);
                 deck_counter++;
                 
-                check_max(deck_counter);
+                check_max(&deck_counter);
             }
 
             if (dealer.sum > 21) {
@@ -162,8 +162,8 @@ void play() {
                 player.balance += player.bet;
             }else if (player.sum == 21){
                 printf("Blackjack!! You won $%d!\n",player.bet);
-                player.balance += player.bet
-            }    
+                player.balance += player.bet;
+            
             } else if (player.sum > dealer.sum) {
                 printf("You just beat the dealer! You won $%d!\n", player.bet);
                 player.balance += player.bet;
@@ -183,11 +183,12 @@ void play() {
 
         printf("\nDo you want to play another round? (0 for No | 1 for Yes): ");
         scanf("%d", &play_again);
-
+        
+        //Πρέπει να μπει στην main λογικά
+        //printf("Final balance: $%d\n", player.balance); 
     }
-    
-    printf("Final balance: $%d\n", player.balance);
-    
-    return 0;
-
 }
+    
+    
+
+

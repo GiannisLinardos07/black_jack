@@ -16,9 +16,9 @@ void deck_create(){
         if((scanf("%d %s",card[i].value,card[i].card_type)) != 2) {
             exit(1);
         }
-        if(card[i] == NULL) {
-            exit(1);
-        }
+
+
+        
     }
 
     fclose(fptr);

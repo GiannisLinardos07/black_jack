@@ -24,6 +24,9 @@ typedef struct player{
 } Player;
 
 extern Card card[MAX_CARDS];
+extern Player player;
+extern Player dealer;
+
 
 
 #endif
